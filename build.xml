@@ -1,0 +1,45 @@
+<project name="Events" default="mkjar" basedir=".">
+	<description>Events Plugin Build</description>
+	<property name="ant.build.javac.source" value="1.5" />
+	<property name="ant.build.javac.target" value="1.5" />
+
+	<path id="project.class.path">
+		<pathelement location="lib/craftbukkit.jar" />
+		<pathelement location="lib/bitlyj-2.0.0.jar" />
+		<pathelement location="lib/Vault.jar" />
+	</path>
+
+	<target name="init">
+		<mkdir dir="bin" />
+		<mkdir dir="jar" />
+	</target>
+
+	<target name="mk" depends="init" unless="build.debug">
+		<javac srcdir="src" destdir="bin"
+		 debuglevel="none"
+		 classpathref="project.class.path"
+		 includeantruntime="false">
+			<compilerarg value="-Xlint"/>
+		</javac>
+	</target>
+
+	<target name="mkjar" depends="mk">
+		<copy file="plugin.yml" todir="bin" overwrite="true"/>
+		<copy file="config.yml" todir="bin" overwrite="true"/>
+		<jar destfile="jar/Events.jar" basedir="bin/">
+			<include name="me/**" />
+			<include name="plugin.yml" />
+			<include name="config.yml" />
+		</jar>
+		
+		<zip destfile="jar/Events.jar" basedir="bin/">
+            <zipgroupfileset dir="lib" includes="bitlyj-2.0.0.jar" />
+        </zip>
+	</target>
+
+	<target name="clean">
+		<delete dir="bin" />
+		<delete dir="jar" />
+	</target>
+
+</project>

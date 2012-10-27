@@ -1,0 +1,62 @@
+name: Events
+main: me.fogest.events.Events
+version: 1.00
+description: Makes trading a tad bit easier
+website: http://fogest.net16.net
+author: Fogest
+
+depend: [Vault]
+
+commands:
+  events:
+    description: Core command for plugin
+    permissions: events.events
+    usage: '/koth'
+  kingofthehill:
+    description: Used to start a trade
+    aliases: [koth]
+    permissions: events.koth
+    usage: '/koth'
+
+permissions:
+  events.*:
+    description: Access to all events commands (including sub commands like /koth)
+    default: op
+    children:
+      events.events : true
+      events.koth : true
+  events.events:
+    description: Access to /events command
+    default: op
+  events.koth: 
+    description: Gives access to all /koth commands
+    default: op
+  events.koth.forcestart:
+    description: Allows access to /koth forcestart which starts the KoTH on demand
+    default: op
+  events.koth.forcestop:
+    description: Allows access to /koth forcestop
+    default: op
+  events.koth.timed:
+    description: Allows enabling and disabling starting and stopping of scheduled events.
+    default: op
+    children:
+      events.koth.timed.start : true
+      events.koth.timed.stop : true
+  events.koth.timed.start:
+    description: Allows enabling of the KoTH scheulder
+    default: op
+  events.koth.timed.stop:
+    description: Allows disabling of the KoTH scheulder
+    default: op
+  events.koth.time:
+    description: Allows for checking of the time left on the current KoTH
+    default: true
+  events.koth.captime:
+    description: Allows for checking of how much time is left until KoTH is contested
+    default: true
+  events.koth.coords:
+    description: Allows for checking the coordinates of the current KoTH
+    default: true
+    
+    
